@@ -16,7 +16,7 @@ public class RecipeCategoryAdder implements Runnable {
 	public void run() {
 		MappingResolver remapper = FabricLoader.getInstance().getMappingResolver();
 
-		String recipeBookCategories = remapper.mapClassName("intermediary", "net.minecraft.client.RecipeBookCategories");
+		String recipeBookCategories = remapper.mapClassName("intermediary", "net.minecraft.class_314");
 		String itemstack = "[L" + remapper.mapClassName("intermediary", "net.minecraft.class_1799") + ';';
 		ClassTinkerers.enumBuilder(recipeBookCategories, itemstack).addEnum("HISTORY", () -> new Object[] { new ItemStack[] {new ItemStack(Items.CLOCK)} }).build();
 	}
