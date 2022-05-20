@@ -1,4 +1,4 @@
-package de.kxmischesdomi.rrb.mixin;
+package de.kxmischesdomi.betterrecipebook.mixin;
 
 import net.minecraft.client.gui.screens.recipebook.RecipeBookPage;
 import org.spongepowered.asm.mixin.Mixin;

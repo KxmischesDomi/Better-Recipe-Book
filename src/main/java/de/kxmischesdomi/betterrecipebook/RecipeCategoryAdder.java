@@ -1,4 +1,4 @@
-package de.kxmischesdomi.rrb;
+package de.kxmischesdomi.betterrecipebook;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.loader.api.FabricLoader;
