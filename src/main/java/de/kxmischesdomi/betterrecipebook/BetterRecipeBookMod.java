@@ -1,4 +1,4 @@
-package de.kxmischesdomi.rrb;
+package de.kxmischesdomi.betterrecipebook;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.api.ClientModInitializer;
@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.RecipeBookType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RememberRecipeBookMod implements ClientModInitializer {
+public class BetterRecipeBookMod implements ClientModInitializer {
 
 	public static final Map<RecipeBookType, RecipeBookCache> BOOK_CACHE = new HashMap<>();
 	public static RecipeBookCategories HISTORY_CATEGORY;

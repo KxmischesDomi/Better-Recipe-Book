@@ -1,4 +1,4 @@
-package de.kxmischesdomi.rrb;
+package de.kxmischesdomi.betterrecipebook;
 
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.screens.recipebook.RecipeCollection;

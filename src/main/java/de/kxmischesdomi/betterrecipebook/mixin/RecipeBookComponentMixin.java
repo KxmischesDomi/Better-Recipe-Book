@@ -1,9 +1,9 @@
-package de.kxmischesdomi.rrb.mixin;
+package de.kxmischesdomi.betterrecipebook.mixin;
 
 import com.google.common.collect.Lists;
-import de.kxmischesdomi.rrb.HistoryTabButton;
-import de.kxmischesdomi.rrb.RecipeBookCache;
-import de.kxmischesdomi.rrb.RememberRecipeBookMod;
+import de.kxmischesdomi.betterrecipebook.BetterRecipeBookMod;
+import de.kxmischesdomi.betterrecipebook.HistoryTabButton;
+import de.kxmischesdomi.betterrecipebook.RecipeBookCache;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.components.EditBox;
@@ -46,7 +46,7 @@ public abstract class RecipeBookComponentMixin {
 
 	@Inject(method = "initVisuals", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/recipebook/RecipeBookComponent;updateCollections(Z)V", shift = At.Shift.BEFORE))
 	public void initVisualsMixin(CallbackInfo ci) {
-		HistoryTabButton history = new HistoryTabButton(RememberRecipeBookMod.HISTORY_CATEGORY);
+		HistoryTabButton history = new HistoryTabButton(BetterRecipeBookMod.HISTORY_CATEGORY);
 		history.visible = true;
 		tabButtons.add(1, history);
 
@@ -89,14 +89,14 @@ public abstract class RecipeBookComponentMixin {
 
 	@Redirect(method = "updateCollections", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/ClientRecipeBook;getCollection(Lnet/minecraft/client/RecipeBookCategories;)Ljava/util/List;"))
 	public List<RecipeCollection> renderMixin(ClientRecipeBook instance, RecipeBookCategories recipeBookCategories) {
-		if (selectedTab.getCategory() == RememberRecipeBookMod.HISTORY_CATEGORY) {
+		if (selectedTab.getCategory() == BetterRecipeBookMod.HISTORY_CATEGORY) {
 			return Lists.newArrayList(getCache().history);
 		}
 		return instance.getCollection(recipeBookCategories);
 	}
 
 	private RecipeBookCache getCache() {
-		return RememberRecipeBookMod.BOOK_CACHE.computeIfAbsent(menu.getRecipeBookType(), recipeBookType ->
+		return BetterRecipeBookMod.BOOK_CACHE.computeIfAbsent(menu.getRecipeBookType(), recipeBookType ->
 				new RecipeBookCache(RecipeBookCategories.getCategories(menu.getRecipeBookType()).get(0)));
 	}
 

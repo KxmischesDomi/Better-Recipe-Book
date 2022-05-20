@@ -1,33 +1,33 @@
 {
   "schemaVersion": 1,
-  "id": "rrb",
+  "id": "betterrecipebook",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Better Recipe Book",
+  "description": "Improves the recipe book experience in many ways",
   "authors": [
     "KxmischesDomi"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/better-recipe-book",
+    "sources": "https://github.com/KxmischesDomi/Better-Recipe-Book"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/rrb/icon.png",
+  "icon": "assets/betterrecipebook/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "client": [
-      "de.kxmischesdomi.rrb.RememberRecipeBookMod"
+      "de.kxmischesdomi.betterrecipebook.BetterRecipeBookMod"
     ],
     "mm:early_risers": [
-      "de.kxmischesdomi.rrb.RecipeCategoryAdder"
+      "de.kxmischesdomi.betterrecipebook.RecipeCategoryAdder"
 
     ]
   },
   "mixins": [
-    "rrb.mixins.json"
+    "betterrecipebook.mixins.json"
   ],
 
   "depends": {
