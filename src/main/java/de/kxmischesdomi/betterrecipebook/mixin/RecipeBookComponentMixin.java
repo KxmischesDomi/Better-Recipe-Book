@@ -22,9 +22,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.List;
 
@@ -52,6 +54,12 @@ public abstract class RecipeBookComponentMixin {
 	@Shadow protected abstract void setVisible(boolean bl);
 
 	private SearchClearButton clearButton;
+
+	@ModifyArgs(method = "initVisuals", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/StateSwitchingButton;<init>(IIIIZ)V"))
+	public void initVisuals(Args args) {
+		int i = args.get(1);
+		args.set(1, i - 2);
+	}
 
 	@Inject(method = "initVisuals", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/recipebook/RecipeBookComponent;updateCollections(Z)V", shift = At.Shift.BEFORE))
 	public void initVisualsMixin(CallbackInfo ci) {
