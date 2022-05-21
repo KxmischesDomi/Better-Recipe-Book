@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 public class SearchClearButton extends Button {
 
 	private static final ResourceLocation xIcon = new ResourceLocation(BetterRecipeBookMod.MOD_ID, "textures/x.png");
-	private static final ResourceLocation xHoverIcon = new ResourceLocation(BetterRecipeBookMod.MOD_ID, "textures/x_hover.png");
 
 	public SearchClearButton(int i, int j, OnPress onPress) {
 		super(i, j, 7, 7, TextComponent.EMPTY, onPress);
@@ -30,12 +29,12 @@ public class SearchClearButton extends Button {
 	public void renderButton(PoseStack poseStack, int i, int j, float f) {
 		poseStack.pushPose();
 		RenderSystem.disableDepthTest();
+		RenderSystem.setShaderTexture(0, xIcon);
+		int g = 0;
 		if (isHovered) {
-			RenderSystem.setShaderTexture(0, xHoverIcon);
-		} else {
-			RenderSystem.setShaderTexture(0, xIcon);
+			g = 7;
 		}
-		blit(poseStack, this.x, this.y, 0, 0, this.width, this.height, this.width, this.height);
+		blit(poseStack, this.x, this.y, 0, g, this.width, this.height, this.width, this.height * 2);
 		RenderSystem.enableDepthTest();
 		poseStack.popPose();
 	}
