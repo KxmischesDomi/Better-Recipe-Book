@@ -51,8 +51,6 @@ public abstract class RecipeBookComponentMixin {
 	@Shadow protected Minecraft minecraft;
 	@Shadow @Final protected GhostRecipe ghostRecipe;
 
-	@Shadow protected abstract void setVisible(boolean bl);
-
 	private SearchClearButton clearButton;
 
 	@ModifyArgs(method = "initVisuals", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/StateSwitchingButton;<init>(IIIIZ)V"))
@@ -97,24 +95,28 @@ public abstract class RecipeBookComponentMixin {
 		this.updateCollections(false);
 	}
 
-	@Inject(method = "tick", at = @At("HEAD"))
-	public void tickMixin(CallbackInfo ci) {
-		while (BetterRecipeBookMod.recipeBookKeyBind.consumeClick()) {
-			setVisible(false);
-		}
-	}
-
 	@Inject(method = "checkSearchStringUpdate", at = @At("TAIL"))
 	public void checkSearchStringUpdateMixin(CallbackInfo ci) {
 		getCache().search = lastSearch;
 	}
 
-	@Inject(method = "mouseClicked", at = @At("TAIL"))
-	public void mouseClickedMixinTail(double d, double e, int i, CallbackInfoReturnable<Boolean> cir) {
-		RecipeBookCache cache = getCache();
-		cache.category = selectedTab.getCategory();
-		cache.page = ((RecipeBookPageAccessor) recipeBookPage).getCurrentPage();
+	@Inject(method = "tick", at = @At("HEAD"))
+	public void tickMixin(CallbackInfo ci) {
+		if (selectedTab != null) {
+			RecipeBookCache cache = getCache();
+			cache.category = selectedTab.getCategory();
+			cache.page = ((RecipeBookPageAccessor) recipeBookPage).getCurrentPage();
+		}
 	}
+
+	// This bottom code sometimes doesn't properly update the cache values so the tick method does the trick rn
+
+//	@Inject(method = "mouseClicked", at = @At("TAIL"))
+//	public void mouseClickedMixinTail(double d, double e, int i, CallbackInfoReturnable<Boolean> cir) {
+//		RecipeBookCache cache = getCache();
+//		cache.category = selectedTab.getCategory();
+//		cache.page = ((RecipeBookPageAccessor) recipeBookPage).getCurrentPage();
+//	}
 
 	@Inject(method = "mouseClicked", cancellable = true, at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/client/gui/components/EditBox;mouseClicked(DDI)Z"))
 	public void mouseClickedMixinClearButton(double d, double e, int i, CallbackInfoReturnable<Boolean> cir) {
