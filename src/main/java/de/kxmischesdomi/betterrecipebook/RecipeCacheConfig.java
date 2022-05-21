@@ -44,6 +44,7 @@ public class RecipeCacheConfig {
 					RecipeBookType type = RecipeBookType.valueOf(stationName);
 
 					JsonObject value = (JsonObject) entry.getValue();
+					boolean visible = value.getAsJsonPrimitive("visible").getAsBoolean();
 					String search = value.getAsJsonPrimitive("search").getAsString();
 					int page = value.getAsJsonPrimitive("page").getAsInt();
 					String categoryName = value.getAsJsonPrimitive("category").getAsString();
@@ -64,9 +65,10 @@ public class RecipeCacheConfig {
 					}
 
 					RecipeBookCache cache = new RecipeBookCache(category);
-					cache.history = loadedHistory;
-					cache.page = page;
+					cache.visible = visible;
 					cache.search = search;
+					cache.page = page;
+					cache.history = loadedHistory;
 					BetterRecipeBookMod.BOOK_CACHE.put(type, cache);
 
 				} catch (Exception exception) {
@@ -99,6 +101,7 @@ public class RecipeCacheConfig {
 			typeObject.addProperty("search", cache.search);
 			typeObject.addProperty("page", cache.page);
 			typeObject.addProperty("category", cache.category.name());
+			typeObject.addProperty("visible", cache.visible);
 
 			JsonArray history = new JsonArray();
 

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class RecipeBookCache {
 
+	public boolean visible = false;
 	public String search = "";
 	public int page = 0;
 	public RecipeBookCategories category;

@@ -32,6 +32,7 @@ public class ScreenMixin {
 		if (BetterRecipeBookMod.recipeBookKeyBind.matches(i, j)) {
 			for (GuiEventListener child : children) {
 				if (child instanceof RecipeBookComponent recipeBookComponent) {
+					if (recipeBookComponent.searchBox == null) break;
 					if (recipeBookComponent.searchBox.isFocused()) {
 						return;
 					}

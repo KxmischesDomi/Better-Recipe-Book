@@ -53,6 +53,16 @@ public abstract class RecipeBookComponentMixin {
 
 	private SearchClearButton clearButton;
 
+	@Redirect(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/recipebook/RecipeBookComponent;isVisibleAccordingToBookData()Z"))
+	public boolean isVisibleAccordingToBookData(RecipeBookComponent instance) {
+		return getCache().visible;
+	}
+
+	@Inject(method = "setVisible", at = @At("HEAD"))
+	public void setVisible(boolean bl, CallbackInfo ci) {
+		getCache().visible = bl;
+	}
+
 	@ModifyArgs(method = "initVisuals", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/StateSwitchingButton;<init>(IIIIZ)V"))
 	public void initVisuals(Args args) {
 		int i = args.get(1);
@@ -120,7 +130,7 @@ public abstract class RecipeBookComponentMixin {
 
 	@Inject(method = "mouseClicked", cancellable = true, at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/client/gui/components/EditBox;mouseClicked(DDI)Z"))
 	public void mouseClickedMixinClearButton(double d, double e, int i, CallbackInfoReturnable<Boolean> cir) {
-		if (!searchBox.getValue().isEmpty()) {
+		if (searchBox != null && !searchBox.getValue().isEmpty()) {
 			if (clearButton.mouseClicked(d, e, i)) {
 				cir.setReturnValue(true);
 			}
@@ -143,7 +153,7 @@ public abstract class RecipeBookComponentMixin {
 			cache.history = history.subList(0, Math.min(history.size(), 4 * 5));
 			cache.lastRecipe = instance.getLastClickedRecipe();
 		}
-		if (selectedTab.getCategory() == BetterRecipeBookMod.HISTORY_CATEGORY) {
+		if (selectedTab != null && selectedTab.getCategory() == BetterRecipeBookMod.HISTORY_CATEGORY) {
 			updateCollections(false);
 		}
 
@@ -153,6 +163,7 @@ public abstract class RecipeBookComponentMixin {
 	@Inject(method = "keyPressed", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/client/gui/components/EditBox;keyPressed(III)Z"), cancellable = true)
 	public void keyPressedMixin(int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
 
+		if (searchBox == null) return;
 		if (searchBox.isFocused()) return;
 		if (i == 32) {
 			RecipeBookCache cache = getCache();
@@ -173,7 +184,7 @@ public abstract class RecipeBookComponentMixin {
 
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.BEFORE))
 	public void renderMixin(PoseStack poseStack, int i, int j, float f, CallbackInfo ci) {
-		if (!searchBox.getValue().isEmpty()) {
+		if (searchBox != null && !searchBox.getValue().isEmpty()) {
 			clearButton.render(poseStack, i, j, f);
 		}
 	}
@@ -181,7 +192,7 @@ public abstract class RecipeBookComponentMixin {
 
 	@Redirect(method = "updateCollections", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/ClientRecipeBook;getCollection(Lnet/minecraft/client/RecipeBookCategories;)Ljava/util/List;"))
 	public List<RecipeCollection> renderMixin(ClientRecipeBook instance, RecipeBookCategories recipeBookCategories) {
-		if (selectedTab.getCategory() == BetterRecipeBookMod.HISTORY_CATEGORY) {
+		if (selectedTab != null && selectedTab.getCategory() == BetterRecipeBookMod.HISTORY_CATEGORY) {
 			List<RecipeCollection> history = getCache().history;
 			for (RecipeCollection recipeCollection : history) {
 				recipeCollection.updateKnownRecipes(book);
@@ -193,7 +204,7 @@ public abstract class RecipeBookComponentMixin {
 
 	private RecipeBookCache getCache() {
 		return BetterRecipeBookMod.BOOK_CACHE.computeIfAbsent(menu.getRecipeBookType(), recipeBookType ->
-				new RecipeBookCache(selectedTab.getCategory()));
+				new RecipeBookCache(RecipeBookCategories.getCategories(this.menu.getRecipeBookType()).get(0)));
 	}
 
 }
