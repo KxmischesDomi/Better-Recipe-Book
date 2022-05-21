@@ -4,12 +4,12 @@
 	"package": "de.kxmischesdomi.betterrecipebook.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"client": [
-		"PauseScreenMixin",
+		"cache.PauseScreenMixin",
 		"RecipeBookComponentMixin",
-		"RecipeBookPageAccessor",
-		"RecipeManagerMixin",
-		"ScreenMixin",
-		"AbstractButtonMixin"
+		"cache.RecipeManagerMixin",
+		"accessor.RecipeBookPageAccessor",
+		"keybind.AbstractButtonMixin",
+		"keybind.ScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

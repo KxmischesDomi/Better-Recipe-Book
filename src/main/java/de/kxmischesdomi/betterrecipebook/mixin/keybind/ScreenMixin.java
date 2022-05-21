@@ -1,4 +1,4 @@
-package de.kxmischesdomi.betterrecipebook.mixin;
+package de.kxmischesdomi.betterrecipebook.mixin.keybind;
 
 import de.kxmischesdomi.betterrecipebook.BetterRecipeBookMod;
 import net.minecraft.client.Minecraft;

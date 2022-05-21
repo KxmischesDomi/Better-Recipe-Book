@@ -1,4 +1,4 @@
-package de.kxmischesdomi.betterrecipebook.mixin;
+package de.kxmischesdomi.betterrecipebook.mixin.keybind;
 
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.ImageButton;

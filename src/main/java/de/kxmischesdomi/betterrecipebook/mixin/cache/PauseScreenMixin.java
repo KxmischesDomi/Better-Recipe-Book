@@ -1,4 +1,4 @@
-package de.kxmischesdomi.betterrecipebook.mixin;
+package de.kxmischesdomi.betterrecipebook.mixin.cache;
 
 import de.kxmischesdomi.betterrecipebook.RecipeCacheConfig;
 import net.minecraft.client.gui.screens.PauseScreen;

@@ -7,6 +7,7 @@ import de.kxmischesdomi.betterrecipebook.RecipeBookCache;
 import de.kxmischesdomi.betterrecipebook.RecipeCacheConfig;
 import de.kxmischesdomi.betterrecipebook.gui.HistoryTabButton;
 import de.kxmischesdomi.betterrecipebook.gui.SearchClearButton;
+import de.kxmischesdomi.betterrecipebook.mixin.accessor.RecipeBookPageAccessor;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.RecipeBookCategories;
@@ -129,7 +130,6 @@ public abstract class RecipeBookComponentMixin {
 
 			history.add(0, collection);
 
-
 			cache.history = history.subList(0, Math.min(history.size(), 4 * 5));
 			cache.lastRecipe = instance.getLastClickedRecipe();
 		}
@@ -185,4 +185,5 @@ public abstract class RecipeBookComponentMixin {
 		return BetterRecipeBookMod.BOOK_CACHE.computeIfAbsent(menu.getRecipeBookType(), recipeBookType ->
 				new RecipeBookCache(selectedTab.getCategory()));
 	}
+
 }
