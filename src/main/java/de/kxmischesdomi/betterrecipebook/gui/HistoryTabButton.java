@@ -1,4 +1,4 @@
-package de.kxmischesdomi.betterrecipebook;
+package de.kxmischesdomi.betterrecipebook.gui;
 
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.RecipeBookCategories;
@@ -18,7 +18,5 @@ public class HistoryTabButton extends RecipeBookTabButton {
 	public boolean updateVisibility(ClientRecipeBook clientRecipeBook) {
 		return visible = true;
 	}
-
-
 
 }

@@ -36,6 +36,10 @@ dependencies {
 	implementation 'com.github.Chocohead:Fabric-ASM:v2.3'
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/betterrecipebook.accesswidener")
+}
+
 processResources {
 	inputs.property "version", project.version
 
